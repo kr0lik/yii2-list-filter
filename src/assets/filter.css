@@ -1,0 +1,9 @@
+/*** Filter ***/
+.list-filter-form .list-filter-form-send { visibility: hidden; }
+.list-filter-form-slider { margin: 10px; }
+
+/** No Js **/
+.list-filter-form.no-js .list-filter-form-more-button,
+.list-filter-form.no-js .list-filter-form-all-values-button { display: none; }
+.list-filter-form.no-js .list-filter-form-more { display: block; }
+.list-filter-form.no-js .list-filter-form-send { visibility: visible; }
