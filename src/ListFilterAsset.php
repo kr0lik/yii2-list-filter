@@ -4,7 +4,7 @@ namespace kr0lik\listFilter;
 use yii\web\{AssetBundle, JqueryAsset};
 use yii\jui\JuiAsset;
 use yii\bootstrap\{BootstrapAsset, BootstrapPluginAsset};
-use app\assets\UiTouchPunchAsset;
+use kr0lik\juiTouchPunch\UiTouchPunchAsset;
 
 class ListFilterAsset extends AssetBundle
 {
