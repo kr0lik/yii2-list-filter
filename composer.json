@@ -2,7 +2,7 @@
 	"name": "kr0lik/yii2-list-filter",
 	"description": "ListView with filter for Yii2",
 	"type": "yii2-extension",
-	"version": "1.0",
+	"version": "1.0.0",
 	"keywords": ["yii2","listview","filter","listfilter","ajax","jquery"],
 	"license": "MIT",
 	"support": {
@@ -17,7 +17,7 @@
 	"require": {
 		"php": ">=7.0",
         	"yiisoft/yii2": "*",
-		"kr0lik/yii2-jui-touch-punch-asset": "dev-master"
+		"kr0lik/yii2-jui-touch-punch-asset": "*"
 	},
 	"autoload": {
 		"psr-4": {
