@@ -97,7 +97,7 @@ class ListWidget extends FilterWidget
      *
      * @var string | false
      */
-    public $toolbarView = '@app/components/ListFilter/views/list/_toolbar';
+    public $toolbarView = 'list/_toolbar';
 
     protected function checkConfiguration()
     {
@@ -189,15 +189,18 @@ class ListWidget extends FilterWidget
         $this->listViewOptions['id'] = $this->id;
         $this->listViewOptions['dataProvider'] = $dataProvider;
         $this->listViewOptions['options']['data-filter-id'] = $formId;
-        /*$this->listViewOptions['summary'] = $this->render($this->toolbarView, [
-            'dataProvider' => $dataProvider,
-            'availableLimits' => $this->availablePerPageLimits,
-            'sortParameterName' => $this->sortParameterName,
-            'viewParameterName' => $this->viewParameterName,
-            'limitParameterName' => $this->limitParameterName,
-            'formId' => $formId
-        ]);*/
-
+        if (! isset($this->listViewOptions['summary'])) {
+            $this->listViewOptions['summary'] = $this->render($this->toolbarView, [
+                'dataProvider' => $dataProvider,
+                'limit' => $this->limit,
+                'availableLimits' => $this->availablePerPageLimits,
+                'limitParameterName' => $this->limitParameterName,
+                'sort' => $this->sort,
+                'availableSorts' => $this->sortAttributes,
+                'sortParameterName' => $this->sortParameterName,
+                'formId' => $formId
+            ]);
+        }
 
         if ($this->listView) {
             return $this->render($this->listView, [
