@@ -4,7 +4,7 @@ namespace kr0lik\listFilter;
 use yii\web\{AssetBundle, JqueryAsset};
 use yii\jui\JuiAsset;
 use yii\bootstrap\{BootstrapAsset, BootstrapPluginAsset};
-use kr0lik\juiTouchPunch\UiTouchPunchAsset;
+use kr0lik\juiTouchPunch\JUiTouchPunchAsset;
 
 class ListFilterAsset extends AssetBundle
 {
@@ -14,7 +14,7 @@ class ListFilterAsset extends AssetBundle
     public $depends = [
         JqueryAsset::class,
         JuiAsset::class,
-        UiTouchPunchAsset::class,
+        JUiTouchPunchAsset::class,
         BootstrapAsset::class,
         BootstrapPluginAsset::class,
     ];
