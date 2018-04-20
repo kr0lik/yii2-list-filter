@@ -481,6 +481,6 @@ class FilterParameter
 
     public function getInputName()
     {
-        return $this->name . ($this->getCollectionId() ? "[{$this->getCollectionId()}]" : "");
+        return $this->getCollectionId() ? "{$this->parent->name}[{$this->getCollectionId()}]" : $this->name;
     }
 }
