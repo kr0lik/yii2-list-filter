@@ -2,7 +2,6 @@
 	"name": "kr0lik/yii2-list-filter",
 	"description": "ListView with filter for Yii2",
 	"type": "yii2-extension",
-	"version": "1.0.0",
 	"keywords": ["yii2","listview","filter","listfilter","ajax","jquery"],
 	"license": "MIT",
 	"support": {
