@@ -3,9 +3,9 @@ use yii\helpers\Html;
 
 $hide = false;
 $inputId = str_replace(['[', ']'], '-', $parameter->getInputName());
+$countValues = count($parameter->getValues());
 ?>
 
-<?php $countValues = count($parameter->getValues()); ?>
 <?php foreach ($parameter->getValues(true) as $i => $value): ?>
     <?php if ($i > $maxShown-1 && $countValues > $maxShown + 1 && ! $parameter->isSelected()) $hide = true; ?>
     <?php if ($i == $maxShown && $countValues > $maxShown + 1): ?>
