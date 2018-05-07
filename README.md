@@ -71,7 +71,7 @@ class YourController extends Controller
 }
 ```
 
-All parameters that has unit - converts to range parameters.If you not nedd auto convert this parameters to range - use:
+All parameters with unit specified - converts to range parameters.If you not nedd auto convert this parameters to range - use:
 
 ```php
 $filter->autoRangeType = false;
