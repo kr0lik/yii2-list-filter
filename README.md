@@ -89,6 +89,13 @@ $filter->getParameter('parameter')->type = kr0lik\listFilter\FilterParameter::TY
 $filter->getParameter('parameter')->getCollection('group')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
 ```
 
+Or in collection: 
+
+```php
+$filter->getParameter('parameter')->getCollection('group')->autoRangeType = false;
+$filter->getParameter('parameter')->getCollection('group')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
+```
+
 
 ListWidget:
 ---
