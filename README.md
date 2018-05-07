@@ -62,7 +62,7 @@ class YourController extends Controller
             ->getCollection('parameter2_1')
             ->addValue('value2', 'Value Name')
 
-        //Price parameter generate example
+        //Range parameter generate example.
         $filter->add('price', 'Price', 'byPrice', '$');
         $filter->getParameter('price')->min = $pricesExtremum['min_price'];
         $filter->getParameter('price')->max = $pricesExtremum['max_price'];
