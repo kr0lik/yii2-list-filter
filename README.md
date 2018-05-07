@@ -84,16 +84,17 @@ use kr0lik\listFilter\ListWidget;
 ```
 
 Available options:
+- filter - Filter.
 - query - ActiveQuery. If null - models and total must be specified.
 - models - Array of models to output. If no query specified.
 - total - Total items for ActiveDataProvider.
-- sortAttributes: [] - Sort attributes for ActiveDataProvider.
+- sortAttributes - Sort attributes for ActiveDataProvider.
 - sortDefault - Default sort for ActiveDataProvider. Example: ['id' => SORT_ASC]
-- availablePerPageLimits:[] - Available per page item list limits. Example: [20, 40, 60].
-- listViewWidget:ListView::class - Class of listView widget.
-- listViewOptions:[] - Options for listView widget.
-- listView - Path to view for output list.
-- toolbarView:'list/_toolbar' - Path to toolbar view. If false - toolbar not shown. Passed in view variables: $formId, $dataProvider, $limit, $availableLimits, $limitParameterName, $sort, $availableSorts, $sortParameterName.
+- availablePerPageLimits - Available per page item list limits. Example: [20, 40, 60].
+- listViewWidget - Class of listView widget.
+- listViewOptions - Options for listView widget.
+- listView - Path to view for output list. Passed in view variables: $listViewWidget, $listViewOptions.
+- toolbarView - Path to toolbar view. If false - toolbar not shown. Passed in view variables: $formId, $dataProvider, $limit, $availableLimits, $limitParameterName, $sort, $availableSorts, $sortParameterName.
 
 FilterWidget:
 ---
@@ -106,3 +107,17 @@ use kr0lik\listFilter\FilterWidget;
 
 <?= FilterWidget::widget(['filter' => $filter]); ?>
 ```
+
+Available options:
+- filter - Filter.
+- action - Path to action script.
+- linkLabels:true - Show labels of options as link.
+- limit:50 - Default number of items per page.
+- sort - Default sort.
+- useNoindex:true - Noindex tag on filter active.
+- sortParameterName - Name of query parameter fro sort.
+- limitParameterName - Name of query parameter fro limit.
+- hiddenParameters - Parameters not shown, but mast be passed at query: [key => value].
+- formOptions - Options from filter form.
+- pathToViewFilter - Path to view for output filter. Passed in view variables: $id, $filter, $action, $limit, $limitName, $sort, $sortName, $linkLabels, $hiddenParameters.
+- collapseMoreThen:5 - Collapse values if thew count more then inputed there.
