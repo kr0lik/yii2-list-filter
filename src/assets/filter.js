@@ -1,4 +1,4 @@
-var ListFilter = {
+var listFilter = {
     filterFormClass: '.list-filter-form',
     toolbarClass: '.list-filter-toolbar',
     resetClass: '.list-filter-form-reset',
@@ -185,4 +185,4 @@ var ListFilter = {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 };
-ListFilter.init();
+listFilter.init();
