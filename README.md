@@ -42,26 +42,26 @@ class YourController extends Controller
         // Init Filter
         $filter = new Filter();
 
-        // Add parameter with value and add select value if value selected in code not in quiery
+        // Add parameter with value and add select value if need select value in code
         $filter->add('parameter1', 'Parameter Name', 'queryAction', 'Parameter Unit')
             ->addValue('value1', 'Value Name', 'value/url/page', 'Value Url title')
             ->addSelect('value1');
 
-        // Add paramete tah has many groups of parameters
+        // Add parameter that has collections of parameters
         $filter->add('parameter2', 'Parameter Name', 'queryAction2')
             ->addCollection('parameter2_1', 'Parameter Group Name')
             ->addValue('value', 'Collection Value Name', 'value/url/page', 'Value Url title');
 
-        // Add values parameter later:
+        // Add value to parameter later
         $filter->getParameter('parameter1')
             ->addValue('value2', 'Value Name');
 
-        // Add collection values later:
+        // Add value to collection later
         $filter->getParameter('parameter2')
             ->getCollection('parameter2_1')
             ->addValue('value2', 'Value Name')
 
-        //Price parameter generate example:
+        //Price parameter generate example
         $filter->add('price', 'Price', 'byPrice', '$');
         $filter->getParameter('price')->min = $pricesExtremum['min_price'];
         $filter->getParameter('price')->max = $pricesExtremum['max_price'];
