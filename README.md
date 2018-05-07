@@ -69,7 +69,7 @@ class YourController extends Controller
 }
 ```
 
-Add filter and query to ListFilter widget:
+Add filter and query to ListWidget:
 ---
 
 ```php
@@ -80,7 +80,7 @@ use kr0lik\listFilter\ListWidget;
 <?= ListWidget::widget(['query' => $query, 'filter' => $filter]); ?>
 ```
 
-Add filter to FilterWidget widget:
+Add filter to FilterWidget:
 ---
 
 ```php
