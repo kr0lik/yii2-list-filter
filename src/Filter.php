@@ -488,4 +488,14 @@ class FilterParameter
     {
         return $this->getCollectionId() ? "{$this->parent->name}[{$this->getCollectionId()}]" : $this->name;
     }
+    
+    /**
+     * Parameter id
+     *
+     * @var string
+     */
+    public function getId(): string
+    {
+        return preg_replace('/[^\w\-]/', '-', $this->getInputName());
+    }
 }
