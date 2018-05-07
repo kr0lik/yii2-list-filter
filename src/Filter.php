@@ -479,7 +479,12 @@ class FilterParameter
         return (bool) $this->values || $this->isRange();
     }
 
-    public function getInputName()
+    /**
+     * Parameter name for input field
+     *
+     * @var string
+     */
+    public function getInputName(): string
     {
         return $this->getCollectionId() ? "{$this->parent->name}[{$this->getCollectionId()}]" : $this->name;
     }
