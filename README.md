@@ -73,12 +73,16 @@ class YourController extends Controller
 
 All parameters that has unit - converts to range parameters.If you not nedd auto convert this parameters to range - use:
 
+```php
 $filter->autoRangeType = false;
+```
 
 And in parameter: 
 
+```php
 $filter->->getParameter('parameter')->autoRangeType = false;
 $filter->->getParameter('parameter')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
+```
 
 
 ListWidget:
