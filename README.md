@@ -119,5 +119,5 @@ Available options:
 - limitParameterName - Name of query parameter fro limit.
 - hiddenParameters - Parameters not shown, but mast be passed at query: [key => value].
 - formOptions - Options from filter form.
-- pathToViewFilter - Path to view for output filter. Passed in view variables: $id, $filter, $action, $limit, $limitName, $sort, $sortName, $linkLabels, $hiddenParameters.
+- pathToViewFilter - Path to view for output filter. Passed in view variables: $filter, $limit, $limitName, $sort, $sortName, $linkLabels, $formOptions, $collapseMoreThen, $hiddenParameters.
 - collapseMoreThen:5 - Collapse values if thew count more then inputed there.
