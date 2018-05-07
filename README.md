@@ -31,7 +31,7 @@ In Controller:
 <?php
 use yii\web\Controller;
 use kr0lik\listFilter\Filter;
-use path/to/YourActiveRecord;
+use path\to\YourActiveRecord;
 
 class YourController extends Controller
 {
