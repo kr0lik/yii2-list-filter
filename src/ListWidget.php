@@ -73,7 +73,7 @@ class ListWidget extends FilterWidget
 
     /**
      * Path to view for output list
-     * Passed variables:
+     * Passed in view variables:
      *  - listViewWidget
      *  - listViewOptions
      *
@@ -83,7 +83,7 @@ class ListWidget extends FilterWidget
 
     /**
      * Path to toolbar view
-     * Passed variables:
+     * Passed in view variables:
      *   - formId
      *   - dataProvider
      *   - limit
