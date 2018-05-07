@@ -26,6 +26,7 @@ to the require section of your `composer.json` file.
 First generate filter parameters and query:
 ---
 
+In Controller:
 ```php
 <?php
 use yii\web\Controller;
@@ -72,6 +73,7 @@ class YourController extends Controller
 Add filter and query to ListWidget:
 ---
 
+In View:
 ```php
 <?php
 use kr0lik\listFilter\ListWidget;
@@ -83,6 +85,7 @@ use kr0lik\listFilter\ListWidget;
 Add filter to FilterWidget:
 ---
 
+In View:
 ```php
 <?php
 use kr0lik\listFilter\FilterWidget;
