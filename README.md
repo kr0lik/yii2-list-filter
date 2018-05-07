@@ -53,7 +53,7 @@ class YourController extends Controller
 
         // Add parameter that has collections of parameters
         $filter->add('parameter2', 'Parameter Name', 'queryAction2')
-            ->addCollection('parameter2_1', 'Parameter Group Name')
+            ->addCollection('group1', 'Parameter Group Name')
             ->addValue('value', 'Collection Value Name', 'value/url/page', 'Value Url title');
 
         // Add value to parameter later
@@ -62,7 +62,7 @@ class YourController extends Controller
 
         // Add value to collection later
         $filter->getParameter('parameter2')
-            ->getCollection('parameter2_1')
+            ->getCollection('group1')
             ->addValue('value2', 'Value Name')
 
         //Range parameter generate example.
