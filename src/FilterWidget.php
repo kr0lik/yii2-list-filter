@@ -80,14 +80,14 @@ class FilterWidget extends Widget
     /**
      * Path to view for output filter
      * Passed in view variables:
-     *  - id
      *  - filter
-     *  - action
      *  - limit
      *  - limitName
      *  - sort
      *  - sortName
      *  - linkLabels
+     *  - formOptions
+     *  - collapseMoreThen
      *  - hiddenParameters
      *
      * @var string
