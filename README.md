@@ -88,8 +88,11 @@ Available options:
 - query - ActiveQuery. If null - models and total must be specified.
 - models - Array of models to output. If no query specified.
 - total - Total items for ActiveDataProvider.
+- limit:50 - Default number of items per page.
 - sortAttributes - Sort attributes for ActiveDataProvider.
 - sortDefault - Default sort for ActiveDataProvider. Example: ['id' => SORT_ASC]
+- sortParameterName - Name of query parameter fro sort.
+- limitParameterName - Name of query parameter fro limit.
 - availablePerPageLimits - Available per page item list limits. Example: [20, 40, 60].
 - listViewWidget - Class of listView widget.
 - listViewOptions - Options for listView widget.
