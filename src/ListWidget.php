@@ -175,7 +175,7 @@ class ListWidget extends FilterWidget
         ]);
 
 
-        if (($page = Yii::$app->request->get('page')) && ($page * $this->limit) - $this->limit > $dataProvider->totalCount) {
+        if (($page = Yii::$app->request->get($dataProvider->pagination->pageParam)) && ($page * $this->limit) - $this->limit > $dataProvider->totalCount) {
             //$this->getView()->registerMetaTag([
             //    'name' => 'robots',
             //    'content' => 'noindex,nofollow'
