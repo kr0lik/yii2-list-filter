@@ -74,7 +74,8 @@ class YourController extends Controller
 }
 ```
 
-All parameters with unit specified - converts to range parameters.If you not nedd auto convert this parameters to range - use:
+All parameters aouput as checkboxes input.
+All parameters with unit - converts to range input. If you not need auto convert all inputs to range - use:
 
 ```php
 $filter->autoRangeType = false;
