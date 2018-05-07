@@ -71,7 +71,7 @@ class YourController extends Controller
 }
 ```
 
-Add filter and query to ListWidget:
+ListWidget:
 ---
 
 In View:
@@ -83,7 +83,19 @@ use kr0lik\listFilter\ListWidget;
 <?= ListWidget::widget(['query' => $query, 'filter' => $filter]); ?>
 ```
 
-Add filter to FilterWidget:
+Available options:
+- query - ActiveQuery. If null - models and total must be specified.
+- models - Array of models to output. If no query specified.
+- total - Total items for ActiveDataProvider.
+- sortAttributes: [] - Sort attributes for ActiveDataProvider.
+- sortDefault - Default sort for ActiveDataProvider. Example: ['id' => SORT_ASC]
+- availablePerPageLimits:[] - Available per page item list limits. Example: [20, 40, 60].
+- listViewWidget:ListView::class - Class of listView widget.
+- listViewOptions:[] - Options for listView widget.
+- listView - Path to view for output list.
+- toolbarView:'list/_toolbar' - Path to toolbar view. If false - toolbar not shown. Passed in view variables: $formId, $dataProvider, $limit, $availableLimits, $limitParameterName, $sort, $availableSorts, $sortParameterName.
+
+FilterWidget:
 ---
 
 In View:
