@@ -74,9 +74,8 @@ class ListWidget extends FilterWidget
     /**
      * Path to view for output list
      * Passed variables:
-     *  - listId - id for ListWidget
      *  - listViewWidget
-     *  - listViewOptions - options for listViewWidget
+     *  - listViewOptions
      *
      * @var string
      */
@@ -85,13 +84,14 @@ class ListWidget extends FilterWidget
     /**
      * Path to toolbar view
      * Passed variables:
-     *   - listId - id for ListWidget
+     *   - formId
      *   - dataProvider
-     *   - view
-     *   - availableViews
-     *   - sortParameterName
-     *   - viewParameterName
+     *   - limit
+     *   - availableLimits
      *   - limitParameterName
+     *   - sort
+     *   - availableSorts
+     *   - sortParameterName
      *
      * If false - toolbar not shown
      *
