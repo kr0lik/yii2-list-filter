@@ -134,10 +134,6 @@ class FilterWidget extends Widget
             $noindex = $this->useNoindex;
         }
 
-        /*if ($param = Yii::$app->request->getQueryParam($this->viewParameterName)) {
-            $noindex = $this->useNoindex;
-            $this->view = $param ?: $this->view;
-        }*/
         if ($param = Yii::$app->request->getQueryParam($this->limitParameterName)) {
             $noindex = $this->useNoindex;
             $this->limit = $param ?: $this->limit;
@@ -181,8 +177,6 @@ class FilterWidget extends Widget
 
         return $this->render($this->pathToViewFilter, [
             'filter' => $this->filter,
-            //'view' => $this->view,
-            //'viewName' => $this->viewParameterName,
             'limit' => $this->limit,
             'limitName' => $this->limitParameterName,
             'sort' => $this->sort,
