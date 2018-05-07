@@ -21,6 +21,9 @@ or add
 
 to the require section of your `composer.json` file.
 
+# Description
+
+Extension will install [kr0lik/yii2-jui-touch-punch-asset](https://github.com/kr0lik/yii2-jui-touch-punch-asset). It used for range parameters in filter.
 
 # Usage
 First generate filter parameters and query:
