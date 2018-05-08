@@ -86,7 +86,6 @@ And in parameter:
 ```php
 $filter->getParameter('parameter')->autoRangeType = false;
 $filter->getParameter('parameter')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
-$filter->getParameter('parameter')->getCollection('group')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
 ```
 
 Or in collection: 
