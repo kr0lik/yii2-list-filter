@@ -479,12 +479,11 @@ class FilterParameter
     {
         if ($this->type == self::TYPE_COLLECTION) {
             foreach ($this->collections as $collection) {
-                if ($collection->getValues()) return true;
-                if ($collection->isRange()) return true;
+                if ($collection->hasValues()) return true;
             }
         }
 
-        return (bool) $this->values || $this->isRange();
+        return (bool) $this->values || ($this->isRange() && $this->min && $this->max);
     }
 
     /**
