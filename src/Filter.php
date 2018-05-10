@@ -65,6 +65,8 @@ class Filter
         $parameter->unit = $unit;
         $parameter->autoRangeType = $this->autoRangeType;
 
+        $parameter->type = $parameter->unit && $parameter->autoRangeType ? FilterParameter::TYPE_RANGE : $parameter->type;
+        
         $this->parameters[$parameterName] = $parameter;
 
         return $parameter;
@@ -174,10 +176,11 @@ class FilterParameter
 
     /**
      * Type of parameter values view
+     * Default: self::TYPE_CHECKBOX
      *
      * @var string
      */
-    public $type;
+    public $type = self::TYPE_CHECKBOX;
 
     /**
      * If has unit - transform type to range
@@ -240,8 +243,6 @@ class FilterParameter
         $this->prepared = false;
 
         if ($this->type != self::TYPE_COLLECTION) {
-            $this->type = $this->type ?: ($this->unit && $this->autoRangeType ? FilterParameter::TYPE_RANGE : FilterParameter::TYPE_CHECKBOX);
-
             $value = new \stdClass();
             $value->key = $key;
             $value->name = $name;
