@@ -14,6 +14,11 @@ class Filter
      */
     public $autoRangeType = true;
 
+    /**
+     * Filter id
+     *
+     * @var string
+     */
     public $id;
 
     private $parameters = [];
@@ -21,7 +26,6 @@ class Filter
     private $hasValues = false;
     private $filtered = false;
     private $isSelected = false;
-
 
     private static $autoIdPrefix = 'f';
     private static $counter = 0;
@@ -64,7 +68,9 @@ class Filter
         $parameter->scope = $scope;
         $parameter->unit = $unit;
         $parameter->autoRangeType = $this->autoRangeType;
-        
+
+        if ($parameter->autoRangeType && $parameter->unit) $parameter->type = FilterParameter::TYPE_RANGE;
+
         $this->parameters[$parameterName] = $parameter;
 
         return $parameter;
@@ -302,7 +308,10 @@ class FilterParameter
         $collection = $this->getCollection($collectionId) ?: new FilterParameter();
         $collection->title = $title;
         $collection->unit = $unit;
-        $collection->type = $unit && $this->autoRangeType ? self::TYPE_RANGE : self::TYPE_CHECKBOX;
+        $collection->autoRangeType = $this->autoRangeType;
+
+        if ($collection->autoRangeType && $collection->unit) $collection->type = self::TYPE_RANGE;
+
         $collection->assign($collectionId, $this);
 
         $this->collections[$collectionId] = $collection;
@@ -402,8 +411,6 @@ class FilterParameter
     {
         if (! $this->prepared) {
             $this->prepared = true;
-            
-            $this->type = ! $this->type && $this->unit && $this->autoRangeType ? self::TYPE_RANGE : self::TYPE_CHECKBOX;
 
             if ($select = Yii::$app->request->getQueryParam($this->name)) {
                 $this->addSelect($select);
@@ -483,17 +490,15 @@ class FilterParameter
     /**
      * Parameter name for input field
      *
-     * @var string
      */
     public function getInputName(): string
     {
         return $this->getCollectionId() ? "{$this->parent->name}[{$this->getCollectionId()}]" : $this->name;
     }
-    
+
     /**
      * Parameter id
      *
-     * @var string
      */
     public function getId(): string
     {
