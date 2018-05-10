@@ -64,8 +64,6 @@ class Filter
         $parameter->scope = $scope;
         $parameter->unit = $unit;
         $parameter->autoRangeType = $this->autoRangeType;
-
-        $parameter->type = $parameter->unit && $parameter->autoRangeType ? FilterParameter::TYPE_RANGE : $parameter->type;
         
         $this->parameters[$parameterName] = $parameter;
 
@@ -404,6 +402,8 @@ class FilterParameter
     {
         if (! $this->prepared) {
             $this->prepared = true;
+            
+            $this->type = ! $this->type && $this->unit && $this->autoRangeType ? self::TYPE_RANGE : self::TYPE_CHECKBOX;
 
             if ($select = Yii::$app->request->getQueryParam($this->name)) {
                 $this->addSelect($select);
