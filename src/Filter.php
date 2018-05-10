@@ -483,7 +483,7 @@ class FilterParameter
             }
         }
 
-        return (bool) $this->values || ($this->isRange() && $this->min && $this->max);
+        return (bool) $this->values || ($this->isRange() && $this->min !== null && $this->max);
     }
 
     /**
