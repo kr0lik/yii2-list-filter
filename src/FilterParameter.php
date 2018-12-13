@@ -3,6 +3,7 @@ namespace kr0lik\listFilter;
 
 use Yii;
 use yii\base\ErrorException;
+use yii\helpers\ArrayHelper;
 
 class FilterParameter
 {
@@ -172,12 +173,12 @@ class FilterParameter
         return $collection;
     }
 
-    private function assign($collectionId, FilterParameter $parent): self
+    private function assign($collectionId, FilterParameter $parameter): self
     {
         $this->prepared = false;
 
         $this->collectionId = $collectionId;
-        $this->parent = $parent;
+        $this->parent = $parameter;
 
         return $this;
     }
@@ -234,22 +235,47 @@ class FilterParameter
     /**
      * Get selected values
      *
-     * @param null $collectionId
+     * @param null|int $collectionId
+     * @param bool $passAllSelections Passed selections, witch are not in values
      * @return array
      */
-    public function getSelections($collectionId = null): array
+    public function getSelections($collectionId = null, bool $passAllSelections = false): array
     {
         $this->prepare();
 
-        if ($this->parent) return $this->parent->getSelections($this->collectionId);
+        if ($this->parent) return $this->parent->getSelections($this->collectionId, $passAllSelections);
 
         $select = $collectionId ? ($this->select[$collectionId] ?? []) : $this->select;
         $isRange = $collectionId ? (isset($this->collections[$collectionId]) && $this->collections[$collectionId] == self::TYPE_RANGE) : $this->type == self::TYPE_RANGE;
 
         if ($isRange && $select) {
-            if (isset($select['from']) || isset($select['to'])) return $select;
+            $min = $collectionId ? $this->getCollection($collectionId)->min : $this->min;
+            $max = $collectionId ? $this->getCollection($collectionId)->max : $this->max;
 
-            return ['from' => current($select), 'to' => current($select)];
+            if ((isset($select['from']) || isset($select['to']))) {
+                if (isset($select['from']) && ! $passAllSelections) {
+                    if ($select['from'] < $min || $select['from'] > $max) unset($select['from']);
+                }
+
+                if (isset($select['to']) && ! $passAllSelections) {
+                    if ($select['to'] < $min || $select['to'] > $max) unset($select['to']);
+                }
+            } else {
+                if (! $passAllSelections) {
+                    if (current($select) < $min || current($select) > $max) {
+                        $select = [];
+                    }
+                }
+
+                if ($select) {
+                    $select = ['from' => current($select), 'to' => current($select)];
+                }
+            }
+        } elseif (! $passAllSelections) {
+            $values = ArrayHelper::getColumn($this->getValues(), 'key');
+            $select = array_filter($select, function ($val) use ($values) {
+                return in_array($val, $values);
+            });
         }
 
         return $select;
@@ -355,5 +381,59 @@ class FilterParameter
     public function getId(): string
     {
         return preg_replace('/[^\w\-]/', '-', $this->getInputName());
+    }
+
+    /**
+     * Get selected values as array of key => name
+     *
+     * @param bool $passAllSelections Passed selections, witch are not in values
+     * @return array
+     */
+    public function getSelectedValues(bool $passAllSelections = false): array
+    {
+        $selected = [];
+
+        if ($this->type == self::TYPE_COLLECTION) {
+            foreach ($this->collections as $parameter) {
+                $selected = array_merge($selected, $parameter->getSelectedValues($passAllSelections));
+            }
+        } else {
+            if ($select = $this->getSelections(null, $passAllSelections)) {
+                if (! $this->isRange() && $this->hasValues()) {
+                    $values = $this->getValues();
+                    $values = ArrayHelper::map($values, 'key', 'name');
+
+                    $values = array_filter($values, function ($key) use ($select) {
+                        return in_array($key, $select);
+                    }, ARRAY_FILTER_USE_KEY);
+
+                    $select = array_filter($select, function ($val) use ($values) {
+                        return ! in_array($val, array_keys($values));
+                    });
+
+                    $selected = array_merge(array_values($values), $select);
+                } elseif ($this->isRange()) {
+                    if (isset($select['from']) && isset($select['to'])) {
+                        if ($select['from'] == $select['to']) {
+                            $selected[] = "{$select['from']}";
+                        } else {
+                            $selected[] = "{$select['from']} - {$select['to']}";
+                        }
+                    } elseif (isset($select['from'])) {
+                        $selected[] = "> {$select['from']}";
+                    } else {
+                        $selected[] = "< {$select['from']}";
+                    }
+                } else {
+                    $selected = $select;
+                }
+            }
+
+            return array_map(function ($val) {
+                return $this->unit ? "$val $this->unit" : $val;
+            }, $selected);
+        }
+
+        return $selected;
     }
 }
