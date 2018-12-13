@@ -3,6 +3,7 @@ namespace kr0lik\listFilter;
 
 use Yii;
 use yii\base\ErrorException;
+use yii\helpers\ArrayHelper;
 
 class Filter
 {
@@ -53,7 +54,7 @@ class Filter
      * @return FilterParameter
      * @throws ErrorException
      */
-    public function add(string $parameterName, string $parameterTitle, string $scope, string $unit = null): FilterParameter
+    public function add(string $parameterName, string $parameterTitle, $scope, string $unit = null): FilterParameter
     {
         if (! $parameterName) throw new ErrorException('Name cant be empty');
         //if (! $parameterTitle) throw new ErrorException('Title cant be empty');
@@ -147,5 +148,22 @@ class Filter
     public function hasValues(): bool
     {
         return (bool) $this->prepare()->hasValues;
+    }
+
+    /**
+     * Get selected values as array of names
+     *
+     * @param bool $passAllSelections Passed selections, witch are not in values
+     * @return array
+     */
+    public function getSelectedValues(bool $passAllSelections = false): array
+    {
+        $selected = [];
+
+        foreach ($this->parameters as $parameter) {
+            $selected = array_merge($selected, $parameter->getSelectedValues($passAllSelections));
+        }
+
+        return $selected;
     }
 }
