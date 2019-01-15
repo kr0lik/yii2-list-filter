@@ -23,11 +23,13 @@ class FilterDataProvider extends ActiveDataProvider
         }
 
         if (! $this->filter instanceof Filter) {
-            throw new InvalidConfigException('The "filter" property must be an instance of the "kr0lik\listFilter\Filter" class.');
+            throw new InvalidConfigException('The "filter" property must be an instance of the "' . Filter::class . '" class.');
         }
 
+        $this->filter->prepare();
         foreach ($this->filter->getParameters() as $parameter) {
             if ($select = $parameter->getSelections()) {
+
                 if (is_string($parameter->scope)) {
                     $this->query->{$parameter->scope}($select);
                 } elseif (is_callable($parameter->scope)) {
