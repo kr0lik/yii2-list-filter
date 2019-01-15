@@ -21,19 +21,15 @@ or add
 
 to the require section of your `composer.json` file.
 
-# Description
-
-Extension will install [kr0lik/yii2-jui-touch-punch-asset](https://github.com/kr0lik/yii2-jui-touch-punch-asset). It used for range inputs in filter.
-
 # Usage
-First generate filter parameters and query:
+Generate filter parameters and query. And then pass it to FilterDataProvider:
 ---
 
 In Controller:
 ```php
 <?php
 use yii\web\Controller;
-use kr0lik\listFilter\Filter;
+use kr0lik\listFilter\{Filter, FilterDataProvider};
 use path\to\YourActiveRecord;
 
 class YourController extends Controller
@@ -70,11 +66,19 @@ class YourController extends Controller
         $filter->getParameter('price')->min = $pricesExtremum['min_price'];
         $filter->getParameter('price')->max = $pricesExtremum['max_price'];
         $filter->getParameter('price')->step = 1;
+        
+        $dataProvider = new FilterDataProvider([
+            'query' => $query,
+            'filter' => $filter,
+            ...
+        ]);
+        
+        return $this->render('view', ['dataProvider' => $dataProvider]);
     }
 }
 ```
+All parameters ouput as checkboxes input.
 
-All parameters aouput as checkboxes input.
 All parameters with unit - converts to range input. If you not need auto convert all inputs to range - use:
 
 ```php
@@ -95,57 +99,4 @@ $filter->getParameter('parameter')->getCollection('group')->autoRangeType = fals
 $filter->getParameter('parameter')->getCollection('group')->type = kr0lik\listFilter\FilterParameter::TYPE_CHECKBOX;
 ```
 
-
-ListWidget:
----
-
-In View:
-```php
-<?php
-use kr0lik\listFilter\ListWidget;
-?>
-
-<?= ListWidget::widget(['query' => $query, 'filter' => $filter]); ?>
-```
-
-Available options:
-- filter - Filter.
-- query - ActiveQuery. If null - models and total must be specified.
-- models - Array of models to output. If no query specified.
-- total - Total items for ActiveDataProvider.
-- limit:50 - Default number of items per page.
-- sortAttributes - Sort attributes for ActiveDataProvider.
-- sortDefault - Default sort for ActiveDataProvider. Example: ['id' => SORT_ASC]
-- sortParameterName - Name of query parameter fro sort.
-- limitParameterName - Name of query parameter fro limit.
-- availablePerPageLimits - Available per page item list limits. Example: [20, 40, 60].
-- listViewWidget - Class of listView widget.
-- listViewOptions - Options for listView widget.
-- listView - Path to view for output list. Passed in view variables: $listViewWidget, $listViewOptions.
-- toolbarView - Path to toolbar view. If false - toolbar not shown. Passed in view variables: $formId, $dataProvider, $limit, $availableLimits, $limitParameterName, $sort, $availableSorts, $sortParameterName.
-
-FilterWidget:
----
-
-In View:
-```php
-<?php
-use kr0lik\listFilter\FilterWidget;
-?>
-
-<?= FilterWidget::widget(['filter' => $filter]); ?>
-```
-
-Available options:
-- filter - Filter.
-- action - Path to action script.
-- linkLabels:true - Show labels of options as link.
-- limit:50 - Default number of items per page.
-- sort - Default sort.
-- useNoindex:true - Noindex tag on filter active.
-- sortParameterName - Name of query parameter fro sort.
-- limitParameterName - Name of query parameter fro limit.
-- hiddenParameters - Parameters not shown, but mast be passed at query: [key => value].
-- formOptions - Options from filter form.
-- pathToViewFilter - Path to view for output filter. Passed in view variables: $filter, $limit, $limitName, $sort, $sortName, $linkLabels, $formOptions, $collapseMoreThen, $hiddenParameters.
-- collapseMoreThen:5 - Collapse values if thew count more then inputed there.
+FilterDataProvider extends ActiveDataProvider.
