@@ -48,7 +48,7 @@ class FilterParameter
     public $autoRangeType = true;
 
     /**
-     * Name of function in ActiveQuery of model
+     * Name of function in ActiveQuery of model OR \Closure
      *
      * @var string
      */
