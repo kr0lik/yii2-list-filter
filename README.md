@@ -100,3 +100,35 @@ $filter->getParameter('parameter')->getCollection('group')->type = kr0lik\listFi
 ```
 
 FilterDataProvider extends ActiveDataProvider.
+
+Pass FilterDataProvider to ListView and generate html for filter:
+---
+
+In View:
+```php
+<?php
+use yii\widgets\ListView;
+
+$filter = $dataProvider->filter;
+?>
+
+<?php foreach ($filter->getParameters() as $parameter): ?>
+    <?php if (! $parameter->hasValues()) continue; ?>
+
+    <?= $parameter->title ?>
+
+    <?php if ($parameter->isCollection()): ?>
+        <?php foreach ($parameter->getCollections() as $parameter): ?>
+            <?php if (! $parameter->hasValues()) continue; ?>
+            
+            
+        <?php endforeach; ?>
+    <?php else: ?>
+        <input <?= in_array($value->key, $parameter->getSelections()) ? 'checked="checked"' : '' ?> type="checkbox" name="<?= $parameter->getInputName() ?>[]" value="<?= $value->key ?>">
+    <label for="<?= $parameter->getInputName() ?>"><?= $value->name ?></span>
+    <?php endif; ?>
+<?php endforeach; ?>
+
+
+<?= ListView::widget(['dataProvider' => $dataProvider]) ?>
+```
