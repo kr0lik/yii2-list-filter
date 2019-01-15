@@ -3,7 +3,6 @@ namespace kr0lik\listFilter;
 
 use Yii;
 use yii\base\ErrorException;
-use yii\helpers\ArrayHelper;
 
 class Filter
 {
@@ -90,7 +89,7 @@ class Filter
      * Get parameter by name
      *
      * @param $name
-     * @return mixed|null
+     * @return FilterParameter|null
      */
     public function getParameter($name)
     {
