@@ -15,8 +15,7 @@
 	],
 	"require": {
 		"php": ">=7.0",
-        	"yiisoft/yii2": "*",
-		"kr0lik/yii2-jui-touch-punch-asset": "*"
+        	"yiisoft/yii2": "*"
 	},
 	"autoload": {
 		"psr-4": {
