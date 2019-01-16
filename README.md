@@ -107,28 +107,51 @@ Pass FilterDataProvider to ListView and generate html for filter:
 In View:
 ```php
 <?php
+use yii\helpers\Html;
 use yii\widgets\ListView;
 
 $filter = $dataProvider->filter;
 ?>
 
-<?php foreach ($filter->getParameters() as $parameter): ?>
-    <?php if (! $parameter->hasValues()) continue; ?>
+<?= Html::beginForm() ?>
+    <?php foreach ($filter->getParameters() as $parameter): ?>
+        <?php if (! $parameter->hasValues()) continue; ?>
+        <h2><?= $parameter->title ?></h2>
 
-    <?= $parameter->title ?>
+        <?php if ($parameter->isCollection()): ?>
+            <?php foreach ($parameter->getCollections() as $parameter): ?>
+                <?php if (! $parameter->hasValues()) continue; ?>
+                <h4><?= $parameter->title ?></h4>
 
-    <?php if ($parameter->isCollection()): ?>
-        <?php foreach ($parameter->getCollections() as $parameter): ?>
+                <?php if ($parameter->isRange()) :?>
+                    <?= Html::input('number', "{$parameter->getInputName()}[from]", $parameter->getSelections()['from'] ?? $parameter->min) ?>
+                    -
+                    <?= Html::input('number', "{$parameter->getInputName()}[to]", $parameter->getSelections()['to'] ?? $parameter->max) ?>
+                <?php else: ?>
+                    <?php foreach($parameter->getValues(true) as $value): ?>
+                        <?= Html::checkbox("{$parameter->getInputName()}[]", $parameter->isValueSelected($value->key), ['id' => "{$parameter->getId()}-{$value->key}"]) ?>
+                        <?= Html::label($value->name, "{$parameter->getId()}-{$value->key}") ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+            <?php endforeach; ?>
+        <?php else: ?>
             <?php if (! $parameter->hasValues()) continue; ?>
-            
-            
-        <?php endforeach; ?>
-    <?php else: ?>
-        <input <?= in_array($value->key, $parameter->getSelections()) ? 'checked="checked"' : '' ?> type="checkbox" name="<?= $parameter->getInputName() ?>[]" value="<?= $value->key ?>">
-    <label for="<?= $parameter->getInputName() ?>"><?= $value->name ?></span>
-    <?php endif; ?>
-<?php endforeach; ?>
 
+            <?php if ($parameter->isRange()) :?>
+                <?= Html::input('number', "{$parameter->getInputName()}[from]", $parameter->getSelections()['from'] ?? $parameter->min) ?>
+                -
+                <?= Html::input('number', "{$parameter->getInputName()}[to]", $parameter->getSelections()['to'] ?? $parameter->max) ?>
+            <?php else: ?>
+                <?php foreach($parameter->getValues(true) as $value): ?>
+                    <?= Html::checkbox("{$parameter->getInputName()}[]", $parameter->isValueSelected($value->key), ['id' => "{$parameter->getId()}-{$value->key}"]) ?>
+                    <?= Html::label($value->name, "{$parameter->getId()}-{$value->key}") ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?= Html::endForm() ?>
 
 <?= ListView::widget(['dataProvider' => $dataProvider]) ?>
 ```
