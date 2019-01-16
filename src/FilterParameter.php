@@ -280,6 +280,17 @@ class FilterParameter
 
         return $select;
     }
+    
+    /**
+     * Check value is selected
+     *
+     * @param $value
+     * @return bool
+     */
+    public function isValueSelected($value): bool
+    {
+        return in_array($value, $this->getSelections());
+    }
 
     /**
      * Prepare parameter
