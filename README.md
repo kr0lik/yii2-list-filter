@@ -152,7 +152,7 @@ $filter = $dataProvider->filter;
         <?php endif; ?>
     <?php endforeach; ?>
     
-    <?= Html::submitButton('Отправить') ?>
+    <?= Html::submitButton('Submit') ?>
 <?= Html::endForm() ?>
 
 <?= ListView::widget(['dataProvider' => $dataProvider]) ?>
