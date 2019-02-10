@@ -33,44 +33,44 @@ class YourController extends Controller
 {
     public function actionIndex()
     {
-		$query = YourModel::find();
+	$query = YourModel::find();
 		
-		$filter = new Filter($query);
+	$filter = new Filter($query);
 		
-		$filter->add('default')->setTitle('Parameter Default')->setScope('byParameter');
+	$filter->add('default')->setTitle('Parameter Default')->setScope('byParameter');
         $filter->add('collection', Filter::PARAMETER_COLLECTION)->setScope('byCollectionParameter');
         $filter->add('price', Filter::PARAMETER_RANGE)->setTitle('Range Parameter')->setScope('byPrice')->setUnit('$');
         $filter->add('hasPrice', Filter::PARAMETER_BOOLEAN)->setScope(function($query, $select) {
             return $select ? $query->hasPrice() : $query;
         })->addValue(true, 'Checked by default')->addSelect(true);
 		
-		$filter->getParameter('default')->addValue('id', 'checkbox', 'Url', 'title');
+	$filter->getParameter('default')->addValue('id', 'checkbox', 'Url', 'title');
 		
-		$filter->getParameter('price')->min = 0;
+	$filter->getParameter('price')->min = 0;
         $filter->getParameter('price')->max = 100;
         $filter->getParameter('price')->setStep(1);
 		
-		$filter->getParameter('collection')
+	$filter->getParameter('collection')
             ->add('collection1')
             ->setTitle('Collection 1')
-			->addValue(true, 'Checked by default')->addSelect(true);
+	    ->addValue(true, 'Checked by default')->addSelect(true);
 			
-		$filter->getParameter('collection')
+	$filter->getParameter('collection')
             ->add('collection2', Filter::PARAMETER_RANGE)
             ->setTitle('Collection 2');	
 				
 		
-		$filter->getParameter('collection')->getParameter('collection2')->min = 0;
-		$filter->getParameter('collection')->getParameter('collection2')->max = 10;
-		$filter->getParameter('collection')->getParameter('collection2')->setStep(0.5);
+	$filter->getParameter('collection')->getParameter('collection2')->min = 0;
+	$filter->getParameter('collection')->getParameter('collection2')->max = 10;
+	$filter->getParameter('collection')->getParameter('collection2')->setStep(0.5);
 		
-		$dataProvider = new ActiveDataProvider([
+	$dataProvider = new ActiveDataProvider([
             'query' => $filter->getQuery(),
-			...
-		]);
+	    ...
+	]);
 		
-		return $this->render('index', ['filter' => $filter, 'dataProvider' => $dataProvider]);
-	}
+	return $this->render('index', ['filter' => $filter, 'dataProvider' => $dataProvider]);
+    }
 }
 ```
 
@@ -99,18 +99,18 @@ use kr0lik\listFilter\Filter;
                 <h4><?= $parameter->getTitle() ?></h4>
 
                 <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
-                    <?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
-                    -
-                    <?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
+			<?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
+			-
+			<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
                 <?php else: ?>
-					<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
-						<?= Html::hiddenInput($parameter->getInputName(), false); ?>
-					<?php endif; ?>
+			<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
+				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
+			<?php endif; ?>
 				
-                    <?php foreach($parameter->getValues(true) as $value): ?>
-                        <?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
-                        <?= Html::label($value->name, $value->id) ?>
-                    <?php endforeach; ?>
+			<?php foreach($parameter->getValues(true) as $value): ?>
+				<?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
+				<?= Html::label($value->name, $value->id) ?>
+			<?php endforeach; ?>
                 <?php endif; ?>
 
             <?php endforeach; ?>
@@ -118,19 +118,19 @@ use kr0lik\listFilter\Filter;
             <?php if (! $parameter->hasValues()) continue; ?>
 
             <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
-				<?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
-				-
-				<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
-			<?php else: ?>
-				<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
-					<?= Html::hiddenInput($parameter->getInputName(), false); ?>
-				<?php endif; ?>
-			
-				<?php foreach($parameter->getValues(true) as $value): ?>
-					<?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
-					<?= Html::label($value->name, $value->id) ?>
-				<?php endforeach; ?>
+			<?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
+			-
+			<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
+            <?php else: ?>
+			<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
+				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
 			<?php endif; ?>
+				
+			<?php foreach($parameter->getValues(true) as $value): ?>
+				<?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
+				<?= Html::label($value->name, $value->id) ?>
+			<?php endforeach; ?>
+            <?php endif; ?>
 
         <?php endif; ?>
     <?php endforeach; ?>
