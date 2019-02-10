@@ -56,12 +56,12 @@ class FilterParameterBase implements FilterParameterInterface
         return $this->scope;
     }
 
-    public function addValue($key, $value, string $url = null, string $title = null): FilterParameterInterface
+    public function addValue($key, $name, string $url = null, string $title = null): FilterParameterInterface
     {
         $object = new \stdClass();
         $object->id = "{$this->name}-{$key}";
         $object->key = $key;
-        $object->value = $value;
+        $object->name = $name;
         $object->url = $url;
         $object->title = $title;
 
