@@ -58,8 +58,10 @@ class FilterParameterBase implements FilterParameterInterface
 
     public function addValue($key, $name, string $url = null, string $title = null): FilterParameterInterface
     {
+        $name = trim($this->getInputName(), '[]');
+        
         $object = new \stdClass();
-        $object->id = "{$this->name}-{$key}";
+        $object->id = "{$name}-{$key}";
         $object->key = $key;
         $object->name = $name;
         $object->url = $url;
