@@ -114,8 +114,8 @@ class FilterParameterBase implements FilterParameterInterface
 
         if ($this->hasSelections()) {
             foreach ($this->getValues() as $value) {
-                if (in_array($value, $this->getSelections())) {
-
+                if (in_array($value->key, $this->getSelections())) {
+                    $values[] = $value;
                 }
             }
         }

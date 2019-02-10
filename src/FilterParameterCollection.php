@@ -58,21 +58,6 @@ class FilterParameterCollection extends FilterParameterBase
         return $selections;
     }
 
-    public function getSelectedValues(): array
-    {
-        $values = [];
-
-        if ($this->hasSelections()) {
-            foreach ($this->getValues() as $value) {
-                if (in_array($value, $this->getSelections())) {
-
-                }
-            }
-        }
-
-        return $values;
-    }
-
     public function prepare(): void
     {
         foreach ($this->parameters as $parameter) {
