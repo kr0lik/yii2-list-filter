@@ -3,15 +3,14 @@ namespace kr0lik\listFilter;
 
 use Yii;
 use yii\base\ErrorException;
+use yii\db\ActiveQuery;
 
 class Filter
 {
-    /**
-     * If has unit - transform type to range
-     *
-     * @var bool
-     */
-    public $autoRangeType = true;
+    const PARAMETER_DEFAULT = 'checkbox';
+    const PARAMETER_BOOLEAN = 'boolean';
+    const PARAMETER_RANGE = 'range';
+    const PARAMETER_COLLECTION = 'collection';
 
     /**
      * Filter id
@@ -20,103 +19,32 @@ class Filter
      */
     public $id;
 
-    private $parameters = [];
-    private $prepared = false;
     private $hasValues = false;
     private $filtered = false;
-    private $isSelected = false;
+    private $selected = false;
 
+    private $query;
     private static $autoIdPrefix = 'f';
     private static $counter = 0;
 
-    public function __construct()
+    use FilterCollectionTrait;
+
+    public function __construct(ActiveQuery $query)
     {
+        $this->query = $query;
         $this->id = static::$autoIdPrefix . static::$counter++;;
     }
 
-    /**
-     * Add parameter to filter
-     *
-     * $parameterName - Name of parameter in query
-     * $parameterTitle - Title of parameter in View
-     * $scope - Name of function in ActiveQuery of model. Must pass variable for selected values.
-     * Example:
-     * public function scopeName($value) {
-     *  return $this->addWhere('field' => $value);
-     * }
-     * $unit - Unit for values of this parameter
-     *
-     * @param string $parameterName
-     * @param string $parameterTitle
-     * @param string $scope
-     * @param string|null $unit
-     * @return FilterParameter
-     * @throws ErrorException
-     */
-    public function add(string $parameterName, string $parameterTitle, $scope, string $unit = null): FilterParameter
+    protected function prepare(): void
     {
-        if (! $parameterName) throw new ErrorException('Name cant be empty');
-        //if (! $parameterTitle) throw new ErrorException('Title cant be empty');
-        if (! $scope) throw new ErrorException('Scope cant be empty');
+        foreach ($this->parameters as $parameter) {
+            if (Yii::$app->request->getQueryParam($parameter->getName())) $this->filtered = true;
 
-        $this->prepared = false;
+            $parameter->prepare();
 
-        $parameter = new FilterParameter();
-        $parameter->name = $parameterName;
-        $parameter->title = $parameterTitle;
-        $parameter->scope = $scope;
-        $parameter->unit = $unit;
-        $parameter->autoRangeType = $this->autoRangeType;
-
-        if ($parameter->autoRangeType && $parameter->unit) $parameter->type = FilterParameter::TYPE_RANGE;
-
-        $this->parameters[$parameterName] = $parameter;
-
-        return $parameter;
-    }
-
-    /**
-     * Get all FilterParameter
-     *
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * Get parameter by name
-     *
-     * @param $name
-     * @return FilterParameter|null
-     */
-    public function getParameter($name)
-    {
-        return $this->parameters[$name] ?? null;
-    }
-
-    /**
-     * Prepare filter
-     *
-     * @return Filter
-     */
-    public function prepare(): self
-    {
-        if (! $this->prepared) {
-            $this->prepared = true;
-
-            foreach ($this->parameters as $parameter) {
-                if (Yii::$app->request->getQueryParam($parameter->name)) $this->filtered = true;
-
-                $parameter->prepare();
-
-                if ($parameter->isSelected()) $this->isSelected = true;
-                if ($parameter->hasValues()) $this->hasValues = true;
-            }
+            if ($parameter->hasSelections()) $this->selected = true;
+            if ($parameter->hasValues()) $this->hasValues = true;
         }
-
-        return $this;
     }
 
     /**
@@ -126,7 +54,7 @@ class Filter
      */
     public function isSelected(): bool
     {
-        return (bool) $this->prepare()->isSelected;
+        return $this->prepare()->selected;
     }
 
     /**
@@ -152,17 +80,43 @@ class Filter
     /**
      * Get selected values as array of names
      *
-     * @param bool $passAllSelections Passed selections, witch are not in values
      * @return array
      */
-    public function getSelectedValues(bool $passAllSelections = false): array
+    public function getSelectedValues(): array
     {
         $selected = [];
 
         foreach ($this->parameters as $parameter) {
-            $selected = array_merge($selected, $parameter->getSelectedValues($passAllSelections));
+            $selected = array_merge($selected, $parameter->getSelectedValues());
         }
 
         return $selected;
+    }
+
+    public function getQuery(): ActiveQuery
+    {
+        $this->prepare();
+
+        $query = $this->query;
+
+        foreach ($this->getParameters() as $parameter) {
+            $select = $parameter->getSelections();
+
+            if ($select !== []) {
+                if ($scope = $parameter->getScope()){
+                    if (is_string($scope)) {
+                        $query->{$scope}($select);
+                    } elseif (is_callable($scope)) {
+                        ($scope)($query, $select);
+                    } else {
+                        throw new InvalidConfigException("Bad scope in parameter {$parameter->getName()}");
+                    }
+                } else {
+                    $query->andWhere([$parameter->getName => $select]);
+                }
+            }
+        }
+
+        return $query;
     }
 }
