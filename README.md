@@ -107,7 +107,7 @@ use kr0lik\listFilter\Filter;
 				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
 			<?php endif; ?>
 				
-			<?php foreach($parameter->getValues(true) as $value): ?>
+			<?php foreach($parameter->getValues() as $value): ?>
 				<?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
 				<?= Html::label($value->name, $value->id) ?>
 			<?php endforeach; ?>
@@ -126,7 +126,7 @@ use kr0lik\listFilter\Filter;
 				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
 			<?php endif; ?>
 				
-			<?php foreach($parameter->getValues(true) as $value): ?>
+			<?php foreach($parameter->getValues() as $value): ?>
 				<?= Html::checkbox($parameter->getInputName(), $parameter->isSelected($value->key), ['id' => $value->id, 'value' => $value->key]) ?>
 				<?= Html::label($value->name, $value->id) ?>
 			<?php endforeach; ?>
