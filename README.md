@@ -1,5 +1,5 @@
 # yii2-list-filter
-filter for ActivQuery Yii2
+Simple filter for Yii2 wicth appply filter values to ActivQuery
 
 # Installation
 
