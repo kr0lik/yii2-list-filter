@@ -35,7 +35,7 @@ class FilterParameterValue implements FilterParameterValueInterface
 
     public function isSelected(): bool
     {
-        return $this->parameter->isSelected($this->getKey());
+        return $this->parameter->isSelected($this->getValue());
     }
 
     public function getId(): string
