@@ -46,9 +46,10 @@ class YourController extends Controller
 		
 	$filter->getParameter('default')->addValue('id', 'checkbox', 'Url', 'title');
 		
-	$filter->getParameter('price')->min = 0;
-        $filter->getParameter('price')->max = 100;
-        $filter->getParameter('price')->setStep(1);
+	$filter->getParameter('price')
+	    ->setMinKey(0)
+            ->setMaxKey(100)
+	    ->setStep(1);
 		
 	$filter->getParameter('collection')
             ->add('collection1')
@@ -60,9 +61,10 @@ class YourController extends Controller
             ->setTitle('Collection 2');	
 				
 		
-	$filter->getParameter('collection')->getParameter('collection2')->min = 0;
-	$filter->getParameter('collection')->getParameter('collection2')->max = 10;
-	$filter->getParameter('collection')->getParameter('collection2')->setStep(0.5);
+	$filter->getParameter('collection')->getParameter('collection2')
+	    ->setMinKey(0)
+            ->setMaxKey(12.5)
+	    ->setStep(0.5);
 		
 	$dataProvider = new ActiveDataProvider([
             'query' => $query->byFilter($filter),
