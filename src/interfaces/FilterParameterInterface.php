@@ -1,0 +1,23 @@
+<?php
+namespace kr0lik\listFilter\interfaces;
+
+interface FilterParameterInterface
+{
+    public function getType(): ?string;
+    public function getid(): string;
+
+    public function setTitle(string $title): FilterParameterInterface;
+    public function getTitle(): string;
+
+    public function setScope($scope): FilterParameterInterface;
+    public function getScope();
+
+    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface;
+    public function getValues(): array;
+
+    public function getSelections(): array;
+    public function getSelectedValues(): array;
+    public function isSelected($key): bool;
+
+    public function getInputName(): string;
+}

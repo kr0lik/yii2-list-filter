@@ -1,0 +1,13 @@
+<?php
+namespace kr0lik\listFilter\interfaces;
+
+interface FilterParameterValueInterface
+{
+    public function getKey();
+    public function getValue();
+    public function getId(): string;
+    public function isSelected(): bool;
+
+    public function getParameterPageUrl(): string;
+    public function getParameterPageTitle(): string;
+}
