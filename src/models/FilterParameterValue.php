@@ -40,7 +40,7 @@ class FilterParameterValue implements FilterParameterValueInterface
 
     public function getId(): string
     {
-        return "{$this->parameter->getId()}--{$this->getKey()}";
+        return "{$this->parameter->getId()}--{$this->getValue()}";
     }
 
     public function getParameterPageUrl(): string
