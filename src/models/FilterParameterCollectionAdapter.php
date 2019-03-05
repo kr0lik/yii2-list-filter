@@ -73,9 +73,9 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
         return $this->parameter->getSelections();
     }
 
-    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
     {
-        $this->parameter->addValue($key, $value, $parameterPageUrl, $parameterPageTitle);
+        $this->parameter->addValue($value, $name, $parameterPageUrl, $parameterPageTitle);
 
         return $this;
     }
@@ -86,7 +86,7 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
         $newValues = [];
 
         foreach ($values as $value) {
-            $newValues[] = $this->makeValue($value->getKey(), $value->getValue(), $value->getParameterPageUrl(), $value->getParameterPageTitle());
+            $newValues[] = $this->makeValue($value->getValue(), $value->getName(), $value->getParameterPageUrl(), $value->getParameterPageTitle());
         }
 
         unset($values);
@@ -99,7 +99,7 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
         $values = [];
 
         foreach ($this->getValues() as $value) {
-            if (in_array($value->getKey(), $this->parameter->getSelections())) {
+            if (in_array($value->getValue(), $this->parameter->getSelections())) {
                 $values[] = $value;
             }
         }
