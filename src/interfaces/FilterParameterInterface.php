@@ -12,12 +12,12 @@ interface FilterParameterInterface
     public function setScope($scope): FilterParameterInterface;
     public function getScope();
 
-    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface;
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface;
     public function getValues(): array;
 
     public function getSelections(): array;
     public function getSelectedValues(): array;
-    public function isSelected($key): bool;
+    public function isSelected($value): bool;
 
     public function getInputName(): string;
 }
