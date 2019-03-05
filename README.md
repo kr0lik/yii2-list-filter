@@ -74,7 +74,7 @@ class YourController extends Controller
 }
 ```
 
-In query class of your model:
+Add FilterQueryTrait in query class of your model:
 
 ```php
 <?php
