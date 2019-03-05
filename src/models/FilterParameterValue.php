@@ -7,30 +7,30 @@ class FilterParameterValue implements FilterParameterValueInterface
 {
     private $parameter;
 
-    private $key;
     private $value;
+    private $name;
 
     protected $parameterPageUrl;
     protected $parameterPageTitle;
 
-    public function __construct(FilterParameterInterface $parameter, $key, $value, string $parameterPageUrl = '', string $parameterPageTitle = '')
+    public function __construct(FilterParameterInterface $parameter, $value, $name, string $parameterPageUrl = '', string $parameterPageTitle = '')
     {
         $this->parameter = $parameter;
-        $this->key = trim($key);
         $this->value = trim($value);
+        $this->name = trim($name);
 
         $this->parameterPageUrl = trim($parameterPageUrl);
         $this->parameterPageTitle = trim($parameterPageTitle);
     }
 
-    public function getKey()
-    {
-        return $this->key;
-    }
-
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function isSelected(): bool
