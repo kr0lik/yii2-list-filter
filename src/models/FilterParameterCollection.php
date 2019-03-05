@@ -25,7 +25,7 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
     }
 
     // ToDo: Liskov substitution
-    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
     {
         throw new ErrorException('You neew get parameter form this collection and add value there');
 
