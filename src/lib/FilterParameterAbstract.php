@@ -99,15 +99,15 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     /**
      * Add new value for this parameter
      *
-     * @param $key
      * @param $value
+     * @param $name
      * @param string $parameterPageUrl
      * @param string $parameterPageTitle
      * @return FilterParameterInterface
      */
-    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
     {
-        $this->values[] = $this->makeValue($key, $value, $parameterPageUrl, $parameterPageTitle);
+        $this->values[] = $this->makeValue($value, $name, $parameterPageUrl, $parameterPageTitle);
 
         return $this;
     }
@@ -153,7 +153,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
         $values = [];
 
         foreach ($this->getValues() as $value) {
-            if (in_array($value->getKey(), $this->getSelections())) {
+            if (in_array($value->getValue(), $this->getSelections())) {
                 $values[] = $value;
             }
         }
@@ -166,9 +166,9 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
      *
      * @return bool
      */
-    public function isSelected($key): bool
+    public function isSelected($value): bool
     {
-        return in_array($key, $this->getSelections());
+        return in_array($value, $this->getSelections());
     }
 
 
@@ -192,9 +192,9 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
 
 
 
-    protected function makeValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterValueInterface
+    protected function makeValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterValueInterface
     {
-        return new FilterParameterValue($this, $key, $value, $parameterPageUrl, $parameterPageTitle);
+        return new FilterParameterValue($this, $value, $name, $parameterPageUrl, $parameterPageTitle);
     }
 
     protected function prepare(): void
