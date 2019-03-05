@@ -6,11 +6,11 @@ use kr0lik\listFilter\lib\FilterParameterAbstract;
 
 class FilterParameterBoolean extends FilterParameterAbstract
 {
-    public function addValue($key, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
     {
         $this->values = [];
 
-        return parent::addValue($key, $name, $parameterPageUrl, $parameterPageTitle);
+        return parent::addValue($value, $name, $parameterPageUrl, $parameterPageTitle);
     }
 
     public function addSelect($select): FilterParameterInterface
