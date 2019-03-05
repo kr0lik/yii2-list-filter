@@ -11,23 +11,23 @@ class FilterParameterRange extends FilterParameterAbstract
     protected $step;
     protected $unit = '';
 
-    public function addValue($key, $value, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
     {
-        $key = trim($key);
+        $value = trim($value);
 
-        if (! $this->min || $key < $this->min) {
+        if (! $this->min || $value < $this->min) {
             $this->min = $key;
         }
 
-        if (! $this->max || $key > $this->max) {
+        if (! $this->max || $value > $this->max) {
             $this->max = $key;
         }
 
-        if (! $this->step && is_float($key)) {
+        if (! $this->step && is_float($value)) {
             $this->step = 0.1;
         }
 
-        return parent::addValue($key, $value, $parameterPageUrl, $parameterPageTitle);
+        return parent::addValue($value, $name, $parameterPageUrl, $parameterPageTitle);
     }
 
     public function addSelect($select): FilterParameterInterface
@@ -44,26 +44,26 @@ class FilterParameterRange extends FilterParameterAbstract
     }
 
 
-    public function setMinKey($min): FilterParameterInterface
+    public function setMinValue($min): FilterParameterInterface
     {
         $this->min = $min;
 
         return $this;
     }
 
-    public function setMaxKey($max): FilterParameterInterface
+    public function setMaxValue($max): FilterParameterInterface
     {
         $this->max = $max;
 
         return $this;
     }
 
-    public function getMinKey()
+    public function getMinValue()
     {
         return $this->min;
     }
 
-    public function getMaxKey()
+    public function getMaxValue()
     {
         return $this->max;
     }
@@ -82,7 +82,7 @@ class FilterParameterRange extends FilterParameterAbstract
 
     public function hasValues(): bool
     {
-        if ($this->getMinKey() !== null || $this->getMaxKey() !== null) {
+        if ($this->getMinValue() !== null || $this->getMaxValue() !== null) {
             return true;
         }
 
@@ -115,13 +115,13 @@ class FilterParameterRange extends FilterParameterAbstract
     {
         $selections = $this->getSelections();
 
-        return isset($selections['from']) ?: $this->getMinKey();
+        return isset($selections['from']) ?: $this->getMinValue();
     }
 
     public function getValueTo()
     {
         $selections = $this->getSelections();
 
-        return isset($selections['to']) ?: $this->getMaxKey();
+        return isset($selections['to']) ?: $this->getMaxValue();
     }
 }
