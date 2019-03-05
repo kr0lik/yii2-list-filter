@@ -3,8 +3,8 @@ namespace kr0lik\listFilter\interfaces;
 
 interface FilterParameterValueInterface
 {
-    public function getKey();
     public function getValue();
+    public function getName();
     public function getId(): string;
     public function isSelected(): bool;
 
