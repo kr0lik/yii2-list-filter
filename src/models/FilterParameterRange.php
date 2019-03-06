@@ -16,11 +16,11 @@ class FilterParameterRange extends FilterParameterAbstract
         $value = trim($value);
 
         if (! $this->min || $value < $this->min) {
-            $this->min = $key;
+            $this->min = $value;
         }
 
         if (! $this->max || $value > $this->max) {
-            $this->max = $key;
+            $this->max = $value;
         }
 
         if (! $this->step && is_float($value)) {
