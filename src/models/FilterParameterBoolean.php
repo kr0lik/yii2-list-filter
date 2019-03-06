@@ -6,7 +6,7 @@ use kr0lik\listFilter\lib\FilterParameterAbstract;
 
 class FilterParameterBoolean extends FilterParameterAbstract
 {
-    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null): FilterParameterInterface
     {
         $this->values = [];
 

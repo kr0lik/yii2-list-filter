@@ -11,7 +11,7 @@ class FilterParameterRange extends FilterParameterAbstract
     protected $step;
     protected $unit = '';
 
-    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null): FilterParameterInterface
     {
         $value = trim($value);
 

@@ -73,7 +73,7 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
         return $this->parameter->getSelections();
     }
 
-    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null): FilterParameterInterface
     {
         $this->parameter->addValue($value, $name, $parameterPageUrl, $parameterPageTitle);
 

@@ -13,7 +13,7 @@ class FilterParameterValue implements FilterParameterValueInterface
     protected $parameterPageUrl;
     protected $parameterPageTitle;
 
-    public function __construct(FilterParameterInterface $parameter, $value, $name, string $parameterPageUrl = '', string $parameterPageTitle = '')
+    public function __construct(FilterParameterInterface $parameter, $value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null)
     {
         $this->parameter = $parameter;
         $this->value = trim($value);
@@ -30,7 +30,7 @@ class FilterParameterValue implements FilterParameterValueInterface
 
     public function getName()
     {
-        return $this->name;
+        return $this->name ?: $this->value;
     }
 
     public function isSelected(): bool

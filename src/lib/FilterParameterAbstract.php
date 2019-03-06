@@ -105,7 +105,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
      * @param string $parameterPageTitle
      * @return FilterParameterInterface
      */
-    public function addValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterInterface
+    public function addValue($value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null): FilterParameterInterface
     {
         $this->values[] = $this->makeValue($value, $name, $parameterPageUrl, $parameterPageTitle);
 
@@ -192,7 +192,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
 
 
 
-    protected function makeValue($value, $name, string $parameterPageUrl = '', string $parameterPageTitle = ''): FilterParameterValueInterface
+    protected function makeValue($value, $name = null, string $parameterPageUrl = null, string $parameterPageTitle = null): FilterParameterValueInterface
     {
         return new FilterParameterValue($this, $value, $name, $parameterPageUrl, $parameterPageTitle);
     }
