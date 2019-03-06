@@ -111,9 +111,8 @@ use kr0lik\listFilter\Filter;
             <?php foreach ($parameter->getParameters() as $parameter): ?>
                 <?php if (! $parameter->hasValues()) continue; ?>
                 <h4><?= $parameter->getTitle() ?></h4>
-
                 <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
-			<?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
+			<?= Html::input('range', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
 			-
 			<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
                 <?php else: ?>
@@ -122,8 +121,8 @@ use kr0lik\listFilter\Filter;
 			<?php endif; ?>
 				
 			<?php foreach($parameter->getValues() as $value): ?>
-				<?= Html::checkbox($parameter->getInputName(), $value->isSelected(), ['id' => $value->getId(), 'value' => $value->getKey()]) ?>
-				<?= Html::label($value->getValue(), $value->getId()) ?>
+				<?= Html::checkbox($parameter->getInputName(), $value->isSelected(), ['id' => $value->getId(), 'value' => $value->getValue()]) ?>
+				<?= Html::label($value->getName(), $value->getId()) ?>
 			<?php endforeach; ?>
                 <?php endif; ?>
 
@@ -141,8 +140,8 @@ use kr0lik\listFilter\Filter;
 			<?php endif; ?>
 				
 			<?php foreach($parameter->getValues() as $value): ?>
-				<?= Html::checkbox($parameter->getInputName(), $value->isSelected(), ['id' => $value->getId(), 'value' => $value->getKey()]) ?>
-                <?= Html::label($value->getValue(), $value->getId()) ?>
+				<?= Html::checkbox($parameter->getInputName(), $value->isSelected(), ['id' => $value->getId(), 'value' => $value->getValue()]) ?>
+                <?= Html::label($value->getName(), $value->getId()) ?>
 			<?php endforeach; ?>
             <?php endif; ?>
 
