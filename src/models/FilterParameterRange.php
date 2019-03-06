@@ -114,7 +114,7 @@ class FilterParameterRange extends FilterParameterAbstract
     public function getValueFrom()
     {
         if ($selections = $this->getSelections()) {
-            return sset($selections['from']) ?: min($selections);
+            return isset($selections['from']) ?: min($selections);
         }
 
         return $this->getMinValue();
@@ -123,7 +123,7 @@ class FilterParameterRange extends FilterParameterAbstract
     public function getValueTo()
     {
         if ($selections = $this->getSelections()) {
-            return sset($selections['to']) ?: max($selections);
+            return isset($selections['to']) ?: max($selections);
         }
 
         return $this->getMaxValue();
