@@ -131,9 +131,7 @@ use kr0lik\listFilter\Filter;
             <?php if (! $parameter->hasValues()) continue; ?>
 
             <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
-			<?= Html::input('number', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
-			-
-			<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
+			<?= Html::input('range', $parameter->getInputName(), current($parameter->getSelections()), ['min' => $parameter->getMinValue(), 'max' => $parameter->getMaxValue(), 'step' => $parameter->getStep()]) ?>
             <?php else: ?>
 			<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
 				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
