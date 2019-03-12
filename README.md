@@ -99,7 +99,7 @@ use kr0lik\listFilter\Filter;
 ?>
 
 <?php foreach ($filter->getSelectedValues() as $value): ?>
-	<?= $value->value ?><br />
+	<?= $value->getName() ?><br />
 <?php endforeach; ?>
 
 <?= Html::beginForm() ?>
