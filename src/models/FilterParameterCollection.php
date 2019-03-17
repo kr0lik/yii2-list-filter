@@ -5,7 +5,7 @@ use kr0lik\listFilter\lib\FilterParameterAbstract;
 use yii\base\ErrorException;
 use kr0lik\listFilter\Filter;
 use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface, FilterStateInterface};
-use kr0lik\listFilter\lib\FilterCollectionTrait;
+use kr0lik\listFilter\lib\{FilterCollectionTrait, FilterParameterFabric};
 
 class FilterParameterCollection extends FilterParameterAbstract implements FilterCollectionInterface
 {
@@ -15,7 +15,7 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
     {
         $this->validateParameterId($id);
 
-        $parameter = $this->makeParameter($id, $type);
+        $parameter = FilterParameterFabric::create($type, $id);
 
         $adapter = new FilterParameterCollectionAdapter($parameter, $this);
 
