@@ -25,7 +25,7 @@ trait FilterCollectionTrait
     {
         $this->validateParameterId($id);
 
-        $parameter = $this->makeParameter($id, $type);
+        $parameter = FilterParameterFabric::create($type, $id);
 
         $this->parameters[$id] = $parameter;
 
@@ -105,18 +105,6 @@ trait FilterCollectionTrait
         return $selected;
     }
 
-
-
-    protected function makeParameter(string $id, string $type): FilterParameterInterface
-    {
-        $operator = "kr0lik\listFilter\models\FilterParameter$type";
-
-        if (class_exists($operator)) {
-            return new $operator($id);
-        }
-
-        throw new ErrorException("Unknown parameter type - '{$type}'");
-    }
 
     protected function validateParameterId(string $id): void
     {

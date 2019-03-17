@@ -9,7 +9,7 @@ interface FilterCollectionInterface
      * $id - Name of parameter in query string
      * $type - Type of parameter.
      *
-     * @param string $name
+     * @param string $id
      * @param string $type
      * @return FilterParameterInterface
      */
@@ -25,7 +25,7 @@ interface FilterCollectionInterface
     /**
      * Get parameter by name
      *
-     * @param $name
+     * @param $id
      * @return FilterParameterInterface|null
      */
     public function getParameter($id): ?FilterParameterInterface;
@@ -33,8 +33,8 @@ interface FilterCollectionInterface
     /**
      * Delete parameter from filter
      *
-     * @param string $name
-     * @return FilterInterface
+     * @param string $id
+     * @return FilterCollectionInterface
      */
     public function deleteParameter(string $id): FilterCollectionInterface;
 

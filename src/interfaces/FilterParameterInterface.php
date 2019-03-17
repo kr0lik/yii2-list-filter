@@ -4,7 +4,7 @@ namespace kr0lik\listFilter\interfaces;
 interface FilterParameterInterface
 {
     public function getType(): ?string;
-    public function getid(): string;
+    public function getId(): string;
 
     public function setTitle(string $title): FilterParameterInterface;
     public function getTitle(): string;

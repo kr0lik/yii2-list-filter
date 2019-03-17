@@ -62,7 +62,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
 
     /**
      * Can be name of your method in query class for model
-     * Example 'byid' equal in your query class: public function byId($select) { return $this->andWhere(['id' => $select]); }
+     * Example 'byId' equal in your query class: public function byId($select) { return $this->andWhere(['id' => $select]); }
      * Or anonymous function:
      * Example: function ($query, $select) { return $query->andWhere(['id' => $select]) }
      *
