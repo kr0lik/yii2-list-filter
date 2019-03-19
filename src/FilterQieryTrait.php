@@ -23,7 +23,7 @@ trait FilterQieryTrait
                         throw new ErrorException("Bad scope in parameter {$parameter->getId()}");
                     }
                 } else {
-                    $query->andWhere([$parameter->getName() => $select]);
+                    $query->andWhere([$parameter->getId() => $select]);
                 }
             }
         }
