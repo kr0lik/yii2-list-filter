@@ -20,7 +20,7 @@ trait FilterQieryTrait
                     } elseif (is_callable($scope)) {
                         ($scope)($query, $select);
                     } else {
-                        throw new ErrorException("Bad scope in parameter {$parameter->getName()}");
+                        throw new ErrorException("Bad scope in parameter {$parameter->getId()}");
                     }
                 } else {
                     $query->andWhere([$parameter->getName() => $select]);
