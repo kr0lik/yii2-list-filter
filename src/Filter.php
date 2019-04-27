@@ -27,6 +27,6 @@ class Filter implements FilterCollectionInterface, FilterStateInterface
 
     public function __construct()
     {
-        $this->id = static::$autoIdPrefix . static::$counter++;;
+        $this->id = static::$autoIdPrefix . static::$counter++;
     }
 }
