@@ -45,7 +45,7 @@ class FilterParameterValue implements FilterParameterValueInterface
 
     public function getParameterPageUrl(): string
     {
-        return $this->parameterPageUrl ?: "?{$this->parameter->getInputName()}={$this->key}";
+        return $this->parameterPageUrl ?: "?{$this->parameter->getInputName()}={$this->value}";
     }
 
     public function getParameterPageTitle(): string
