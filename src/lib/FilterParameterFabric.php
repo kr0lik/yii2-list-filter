@@ -1,6 +1,7 @@
 <?php
 namespace kr0lik\listFilter\lib;
 
+use yii\base\ErrorException;
 use kr0lik\listFilter\interfaces\FilterParameterInterface;
 
 class FilterParameterFabric
