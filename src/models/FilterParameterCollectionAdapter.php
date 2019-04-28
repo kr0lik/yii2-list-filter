@@ -13,6 +13,8 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
     {
         $this->parameter = $parameter;
         $this->collection = $collection;
+		
+		parent::__construct("adapter_{$parameter->getId()}");
     }
 
     public function __call($method, $parameters)

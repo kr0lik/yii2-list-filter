@@ -1,9 +1,11 @@
 <?php
 namespace kr0lik\listFilter\lib;
 
+use kr0lik\listFilter\interfaces\FilterParameterInterface;
+
 class FilterParameterFabric
 {
-    public static function create(string $type, string $id)
+    public static function create(string $type, string $id): FilterParameterInterface
     {
         $class = "kr0lik\listFilter\models\FilterParameter$type";
 
