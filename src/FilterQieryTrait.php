@@ -4,8 +4,17 @@ namespace kr0lik\listFilter;
 use yii\base\ErrorException;
 use kr0lik\listFilter\interfaces\FilterCollectionInterface;
 
+/**
+ * Trait FilterQieryTrait
+ * @package kr0lik\listFilter
+ */
 trait FilterQieryTrait
 {
+    /**
+     * @param FilterCollectionInterface $filter
+     * @return FilterQieryTrait
+     * @throws ErrorException
+     */
     public function byFilter(FilterCollectionInterface $filter)
     {
         $query = $this;

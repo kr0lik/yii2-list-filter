@@ -6,8 +6,15 @@ use yii\base\ErrorException;
 use kr0lik\listFilter\Filter;
 use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface};
 
+/**
+ * Trait FilterCollectionTrait
+ * @package kr0lik\listFilter\lib
+ */
 trait FilterCollectionTrait
 {
+    /**
+     * @var array
+     */
     private $parameters = [];
 
     /**
@@ -45,19 +52,24 @@ trait FilterCollectionTrait
     /**
      * Get parameter by name
      *
-     * @param $id
-     * @return FilterParameter|null
+     * @param string|int $id
+     * @return FilterParameterInterface
+     * @throws \Exception
      */
-    public function getParameter($id): ?FilterParameterInterface
+    public function getParameter($id): FilterParameterInterface
     {
-        return $this->parameters[$id] ?? null;
+        if (! isset($this->parameters[$id])) {
+            throw new \Exception("Unknown parameter $id");
+        }
+
+        return $this->parameters[$id];
     }
 
     /**
      * Delete parameter from filter
      *
      * @param string $id
-     * @return Filter
+     * @return FilterCollectionInterface
      */
     public function deleteParameter(string $id): FilterCollectionInterface
     {
@@ -67,6 +79,9 @@ trait FilterCollectionTrait
     }
 
 
+    /**
+     * @return bool
+     */
     public function hasFiltered(): bool
     {
         foreach ($this->getParameters() as $parameter) {
@@ -76,6 +91,9 @@ trait FilterCollectionTrait
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function hasValues(): bool
     {
         foreach ($this->getParameters() as $parameter) {
@@ -85,6 +103,9 @@ trait FilterCollectionTrait
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function hasSelections(): bool
     {
         foreach ($this->getParameters() as $parameter) {
@@ -94,6 +115,9 @@ trait FilterCollectionTrait
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function getSelectedValues(): array
     {
         $selected = [];
@@ -106,6 +130,10 @@ trait FilterCollectionTrait
     }
 
 
+    /**
+     * @param string $id
+     * @throws ErrorException
+     */
     protected function validateParameterId(string $id): void
     {
         if (! $id) throw new ErrorException('Name cant be empty');

@@ -4,8 +4,16 @@ namespace kr0lik\listFilter\models;
 use kr0lik\listFilter\interfaces\FilterParameterInterface;
 use kr0lik\listFilter\lib\FilterParameterAbstract;
 
+/**
+ * Class FilterParameterCheckbox
+ * @package kr0lik\listFilter\models
+ */
 class FilterParameterCheckbox extends FilterParameterAbstract implements FilterParameterInterface
 {
+    /**
+     * @param mixed $select
+     * @return FilterParameterInterface
+     */
     public function addSelect($select): FilterParameterInterface
     {
         if (is_array($select)) {

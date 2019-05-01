@@ -1,7 +1,11 @@
 <?php
 namespace kr0lik\listFilter\interfaces;
 
-interface FilterCollectionInterface
+/**
+ * Interface FilterCollectionInterface
+ * @package kr0lik\listFilter\interfaces
+ */
+interface FilterCollectionInterface extends FilterStateInterface
 {
     /**
      * Add new parameter
@@ -25,10 +29,10 @@ interface FilterCollectionInterface
     /**
      * Get parameter by name
      *
-     * @param $id
-     * @return FilterParameterInterface|null
+     * @param mixed $id
+     * @return FilterParameterInterface
      */
-    public function getParameter($id): ?FilterParameterInterface;
+    public function getParameter($id): FilterParameterInterface;
 
     /**
      * Delete parameter from filter

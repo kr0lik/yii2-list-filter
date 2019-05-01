@@ -2,34 +2,58 @@
 namespace kr0lik\listFilter\lib;
 
 use Yii;
-use yii\helpers\StringHelper;
 use kr0lik\listFilter\interfaces\{FilterParameterInterface,FilterParameterValueInterface,FilterStateInterface};
 use kr0lik\listFilter\models\FilterParameterValue;
 
+/**
+ * Class FilterParameterAbstract
+ * @package kr0lik\listFilter\lib
+ */
 abstract class FilterParameterAbstract implements FilterParameterInterface, FilterStateInterface
 {
+    /**
+     * @var string
+     */
     protected $id = '';
+    /**
+     * @var string
+     */
     protected $title = '';
+    /**
+     * @var mixed
+     */
     protected $scope;
 
+    /**
+     * @var array
+     */
     protected $values = [];
+    /**
+     * @var array
+     */
     protected $selections = [];
 
+    /**
+     * @var bool
+     */
     protected $hasFiltered = false;
 
+    /**
+     * FilterParameterAbstract constructor.
+     * @param string $id
+     */
     public function __construct(string $id)
     {
         $this->id = $id;
     }
 
     /**
-     * Type name of parameter
-     *
-     * @return null|string;
+     * @return string|null
+     * @throws \ReflectionException
      */
     public function getType(): ?string
     {
-        return str_replace('FilterParameter', '', StringHelper::basename(get_class($this)));
+        return str_replace('FilterParameter', '', (new \ReflectionClass($this))->getShortName());
     }
 
     /**
@@ -55,6 +79,9 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
         return $this->title;
@@ -66,7 +93,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
      * Or anonymous function:
      * Example: function ($query, $select) { return $query->andWhere(['id' => $select]) }
      *
-     * @param $scope
+     * @param string $scope
      * @return FilterParameterInterface
      */
     public function setScope($scope): FilterParameterInterface
@@ -99,8 +126,8 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     /**
      * Add new value for this parameter
      *
-     * @param $value
-     * @param $name
+     * @param mixed $value
+     * @param mixed $name
      * @param string $parameterPageUrl
      * @param string $parameterPageTitle
      * @return FilterParameterInterface
@@ -123,7 +150,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     /**
      * Add key to selections
      *
-     * @param $select
+     * @param mixed $select
      * @return FilterParameterInterface
      */
     abstract public function addSelect($select): FilterParameterInterface;
@@ -164,6 +191,7 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     /**
      * Check key is in selections
      *
+     * @param string|int|float $value
      * @return bool
      */
     public function isSelected($value): bool
@@ -172,7 +200,9 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     }
 
 
-
+    /**
+     * @return bool
+     */
     public function hasFiltered(): bool
     {
         $this->prepare();
@@ -180,18 +210,30 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
         return $this->hasFiltered;
     }
 
+    /**
+     * @return bool
+     */
     public function hasValues(): bool
     {
         return (bool) $this->getValues();
     }
 
+    /**
+     * @return bool
+     */
     public function hasSelections(): bool
     {
         return (bool) $this->getSelections();
     }
 
 
-
+    /**
+     * @param string|int|float $value
+     * @param string|int|float|null $name
+     * @param string|null $parameterPageUrl
+     * @param string|null $parameterPageTitle
+     * @return FilterParameterValueInterface
+     */
     protected function makeValue($value, $name = null, string $parameterPageUrl = null, string $parameterPageTitle = null): FilterParameterValueInterface
     {
         return new FilterParameterValue($this, $value, $name, $parameterPageUrl, $parameterPageTitle);

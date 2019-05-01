@@ -1,6 +1,10 @@
 <?php
 namespace kr0lik\listFilter\interfaces;
 
+/**
+ * Interface FilterStateInterface
+ * @package kr0lik\listFilter\interfaces
+ */
 interface FilterStateInterface
 {
     /**
