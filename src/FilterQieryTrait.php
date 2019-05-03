@@ -12,7 +12,7 @@ trait FilterQieryTrait
 {
     /**
      * @param FilterCollectionInterface $filter
-     * @return FilterQieryTrait
+     * @return ActiveRecord
      * @throws ErrorException
      */
     public function byFilter(FilterCollectionInterface $filter)
