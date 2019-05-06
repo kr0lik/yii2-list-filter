@@ -12,13 +12,9 @@ use kr0lik\listFilter\lib\FilterCollectionTrait;
  */
 class Filter implements FilterCollectionInterface
 {
-
     const PARAMETER_CHECKBOX = 'Checkbox';
-
     const PARAMETER_BOOLEAN = 'Boolean';
-
     const PARAMETER_RANGE = 'Range';
-
     const PARAMETER_COLLECTION = 'Collection';
 
     /**
