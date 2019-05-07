@@ -1,7 +1,8 @@
 <?php
 namespace kr0lik\listFilter\models;
 
-use kr0lik\listFilter\interfaces\{FilterParameterInterface, FilterParameterValueInterface};
+use kr0lik\listFilter\FilterParameterTypeEnum;
+use kr0lik\listFilter\interfaces\FilterParameterInterface;
 use kr0lik\listFilter\lib\FilterParameterAbstract;
 
 /**
@@ -26,6 +27,14 @@ class FilterParameterRange extends FilterParameterAbstract
      * @var string
      */
     protected $unit = '';
+
+    /**
+     * @return string
+     */
+    public static function getType(): string
+    {
+        return FilterParameterTypeEnum::PARAMETER_RANGE;
+    }
 
     /**
      * @param mixed $value

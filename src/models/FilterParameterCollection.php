@@ -1,10 +1,10 @@
 <?php
 namespace kr0lik\listFilter\models;
 
-use kr0lik\listFilter\lib\FilterParameterAbstract;
 use yii\base\ErrorException;
-use kr0lik\listFilter\Filter;
-use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface, FilterStateInterface};
+use kr0lik\listFilter\FilterParameterTypeEnum;
+use kr0lik\listFilter\lib\FilterParameterAbstract;
+use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface};
 use kr0lik\listFilter\lib\{FilterCollectionTrait, FilterParameterFabric};
 
 /**
@@ -16,12 +16,20 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
     use FilterCollectionTrait;
 
     /**
+     * @return string
+     */
+    public static function getType(): string
+    {
+        return FilterParameterTypeEnum::PARAMETER_COLLECTION;
+    }
+
+    /**
      * @param string $id
      * @param string $type
      * @return FilterParameterInterface
      * @throws ErrorException
      */
-    public function add(string $id, string $type = Filter::PARAMETER_CHECKBOX): FilterParameterInterface
+    public function add(string $id, string $type = FilterParameterTypeEnum::PARAMETER_CHECKBOX): FilterParameterInterface
     {
         $this->validateParameterId($id);
 

@@ -1,10 +1,9 @@
 <?php
 namespace kr0lik\listFilter\lib;
 
-use Yii;
 use yii\base\ErrorException;
-use kr0lik\listFilter\Filter;
 use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface};
+use kr0lik\listFilter\FilterParameterTypeEnum;
 
 /**
  * Trait FilterCollectionTrait
@@ -28,7 +27,7 @@ trait FilterCollectionTrait
      * @return FilterParameterInterface
      * @throws ErrorException
      */
-    public function add(string $id, string $type = Filter::PARAMETER_CHECKBOX): FilterParameterInterface
+    public function add(string $id, string $type = FilterParameterTypeEnum::PARAMETER_CHECKBOX): FilterParameterInterface
     {
         $this->validateParameterId($id);
 

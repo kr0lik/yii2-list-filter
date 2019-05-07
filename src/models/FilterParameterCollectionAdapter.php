@@ -20,6 +20,11 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
     private $collection;
 
     /**
+     * @var string
+     */
+    private static $type;
+
+    /**
      * FilterParameterCollectionAdapter constructor.
      * @param FilterParameterInterface $parameter
      * @param FilterParameterCollection $collection
@@ -28,6 +33,8 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
     {
         $this->parameter = $parameter;
         $this->collection = $collection;
+
+        self::$type = $parameter::getType();
 		
 		parent::__construct("adapter_{$parameter->getId()}");
     }
@@ -51,11 +58,11 @@ class FilterParameterCollectionAdapter extends FilterParameterAbstract
     // Override methods
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getType(): ?string
+    public static function getType(): string
     {
-        return $this->parameter->getType();
+        return self::$type;
     }
 
     /**

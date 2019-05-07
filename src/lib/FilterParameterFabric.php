@@ -2,6 +2,7 @@
 namespace kr0lik\listFilter\lib;
 
 use yii\base\ErrorException;
+use kr0lik\listFilter\models\{FilterParameterBoolean, FilterParameterCheckbox, FilterParameterCollection, FilterParameterRange};
 use kr0lik\listFilter\interfaces\FilterParameterInterface;
 
 /**
@@ -11,6 +12,16 @@ use kr0lik\listFilter\interfaces\FilterParameterInterface;
 class FilterParameterFabric
 {
     /**
+     * @var array
+     */
+    private static $map = [
+        FilterParameterCheckbox::class,
+        FilterParameterBoolean::class,
+        FilterParameterRange::class,
+        FilterParameterCollection::class
+    ];
+
+    /**
      * @param string $type
      * @param string $id
      * @return FilterParameterInterface
@@ -18,12 +29,10 @@ class FilterParameterFabric
      */
     public static function create(string $type, string $id): FilterParameterInterface
     {
-        $class = "kr0lik\listFilter\models\FilterParameter$type";
-
-        if (! class_exists($class)) {
-            throw new ErrorException("Unknown parameter type - '{$type}'");
+        foreach (self::$map as $class) {
+            if ($class::getType() === $type) return new $class($id);
         }
 
-        return new $class($id);
+        throw new ErrorException("Unknown parameter type - '{$type}'");
     }
 }

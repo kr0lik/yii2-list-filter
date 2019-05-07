@@ -107,16 +107,16 @@ use kr0lik\listFilter\Filter;
         <?php if (! $parameter->hasValues()) continue; ?>
         <h2><?= $parameter->getTitle() ?></h2>
 
-        <?php if ($parameter->getType() == Filter::PARAMETER_COLLECTION): ?>
+        <?php if ($parameter::getType() === Filter::PARAMETER_COLLECTION): ?>
             <?php foreach ($parameter->getParameters() as $parameter): ?>
                 <?php if (! $parameter->hasValues()) continue; ?>
                 <h4><?= $parameter->getTitle() ?></h4>
-                <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
+                <?php if ($parameter::getType() === Filter::PARAMETER_RANGE) :?>
 			<?= Html::input('range', $parameter->getInputNameFrom(), $parameter->getValueFrom()) ?>
 			-
 			<?= Html::input('number', $parameter->getInputNameTo(), $parameter->getValueTo()) ?>
                 <?php else: ?>
-			<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
+			<?php if ($parameter::getType() === Filter::PARAMETER_BOOLEAN) :?>
 				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
 			<?php endif; ?>
 				
@@ -130,10 +130,10 @@ use kr0lik\listFilter\Filter;
         <?php else: ?>
             <?php if (! $parameter->hasValues()) continue; ?>
 
-            <?php if ($parameter->getType() == Filter::PARAMETER_RANGE) :?>
+            <?php if ($parameter::getType() === Filter::PARAMETER_RANGE) :?>
 			<?= Html::input('range', $parameter->getInputName(), current($parameter->getSelections()), ['min' => $parameter->getMinValue(), 'max' => $parameter->getMaxValue(), 'step' => $parameter->getStep()]) ?>
             <?php else: ?>
-			<?php if ($parameter->getType() == Filter::PARAMETER_BOOLEAN) :?>
+			<?php if ($parameter::getType() === Filter::PARAMETER_BOOLEAN) :?>
 				<?= Html::hiddenInput($parameter->getInputName(), false); ?>
 			<?php endif; ?>
 				

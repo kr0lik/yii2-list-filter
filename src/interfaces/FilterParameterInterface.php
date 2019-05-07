@@ -8,9 +8,9 @@ namespace kr0lik\listFilter\interfaces;
 interface FilterParameterInterface
 {
     /**
-     * @return string|null
+     * @return string
      */
-    public function getType(): ?string;
+    public static function getType(): string;
 
     /**
      * @return string

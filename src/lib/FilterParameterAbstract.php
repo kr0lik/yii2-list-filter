@@ -48,13 +48,9 @@ abstract class FilterParameterAbstract implements FilterParameterInterface, Filt
     }
 
     /**
-     * @return string|null
-     * @throws \ReflectionException
+     * @return string
      */
-    public function getType(): ?string
-    {
-        return str_replace('FilterParameter', '', (new \ReflectionClass($this))->getShortName());
-    }
+    abstract public static function getType(): string;
 
     /**
      * name of parameter in query string

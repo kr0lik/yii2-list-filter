@@ -1,6 +1,7 @@
 <?php
 namespace kr0lik\listFilter\models;
 
+use kr0lik\listFilter\FilterParameterTypeEnum;
 use kr0lik\listFilter\interfaces\FilterParameterInterface;
 use kr0lik\listFilter\lib\FilterParameterAbstract;
 
@@ -10,6 +11,14 @@ use kr0lik\listFilter\lib\FilterParameterAbstract;
  */
 class FilterParameterBoolean extends FilterParameterAbstract
 {
+    /**
+     * @return string
+     */
+    public static function getType(): string
+    {
+        return FilterParameterTypeEnum::PARAMETER_BOOLEAN;
+    }
+
     /**
      * @param mixed $value
      * @param null $name
