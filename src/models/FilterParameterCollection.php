@@ -1,7 +1,7 @@
 <?php
 namespace kr0lik\listFilter\models;
 
-use yii\base\ErrorException;
+use kr0lik\listFilter\exception\ListFilterException;
 use kr0lik\listFilter\FilterParameterTypeEnum;
 use kr0lik\listFilter\lib\FilterParameterAbstract;
 use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface};
@@ -26,8 +26,8 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
     /**
      * @param string $id
      * @param string $type
+     * @throws ListFilterException
      * @return FilterParameterInterface
-     * @throws ErrorException
      */
     public function add(string $id, string $type = FilterParameterTypeEnum::PARAMETER_CHECKBOX): FilterParameterInterface
     {
@@ -49,12 +49,12 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
      * @param null $name
      * @param string|null $parameterPageUrl
      * @param string|null $parameterPageTitle
+     * @throws ListFilterException
      * @return FilterParameterInterface
-     * @throws ErrorException
      */
     public function addValue($value, $name = null, ?string $parameterPageUrl = null, ?string $parameterPageTitle = null): FilterParameterInterface
     {
-        throw new ErrorException('You new get parameter form this collection and add value there');
+        throw new ListFilterException('You new get parameter form this collection and add value there');
 
         return $this;
     }
@@ -63,12 +63,12 @@ class FilterParameterCollection extends FilterParameterAbstract implements Filte
 
     /**
      * @param mixed $select
+     * @throws ListFilterException
      * @return FilterParameterInterface
-     * @throws ErrorException
      */
     public function addSelect($select): FilterParameterInterface
     {
-        throw new ErrorException('You new get parameter form this collection and add select there');
+        throw new ListFilterException('You new get parameter form this collection and add select there');
 
         return $this;
     }

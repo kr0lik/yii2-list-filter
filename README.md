@@ -81,11 +81,11 @@ Add FilterQueryTrait in query class of your model:
 ```php
 <?php
 use yii\db\ActiveQuery;
-use kr0lik\listFilter\FilterQieryTrait;
+use kr0lik\listFilter\FilterQueryTrait;
 
 class YourModelQuery extends ActiveQuery
 {
-    use FilterQieryTrait;
+    use FilterQueryTrait;
 }
 ```
 

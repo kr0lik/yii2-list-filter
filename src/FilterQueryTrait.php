@@ -1,19 +1,20 @@
 <?php
 namespace kr0lik\listFilter;
 
-use yii\base\ErrorException;
+use yii\db\ActiveRecord;
+use kr0lik\listFilter\exception\ListFilterException;
 use kr0lik\listFilter\interfaces\FilterCollectionInterface;
 
 /**
- * Trait FilterQieryTrait
+ * Trait FilterQueryTrait
  * @package kr0lik\listFilter
  */
-trait FilterQieryTrait
+trait FilterQueryTrait
 {
     /**
      * @param FilterCollectionInterface $filter
+     * @throws ListFilterException
      * @return ActiveRecord
-     * @throws ErrorException
      */
     public function byFilter(FilterCollectionInterface $filter)
     {
@@ -29,7 +30,7 @@ trait FilterQieryTrait
                     } elseif (is_callable($scope)) {
                         ($scope)($query, $select);
                     } else {
-                        throw new ErrorException("Bad scope in parameter {$parameter->getId()}");
+                        throw new ListFilterException("Bad scope in parameter {$parameter->getId()}");
                     }
                 } else {
                     $query->andWhere([$parameter->getId() => $select]);

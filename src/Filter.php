@@ -1,9 +1,7 @@
 <?php
 namespace kr0lik\listFilter;
 
-use Yii;
-use yii\db\ActiveQuery;
-use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterStateInterface};
+use kr0lik\listFilter\interfaces\FilterCollectionInterface;
 use kr0lik\listFilter\lib\FilterCollectionTrait;
 
 /**

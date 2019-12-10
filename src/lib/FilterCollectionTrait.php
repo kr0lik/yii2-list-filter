@@ -1,7 +1,7 @@
 <?php
 namespace kr0lik\listFilter\lib;
 
-use yii\base\ErrorException;
+use kr0lik\listFilter\exception\ListFilterException;
 use kr0lik\listFilter\interfaces\{FilterCollectionInterface, FilterParameterInterface};
 use kr0lik\listFilter\FilterParameterTypeEnum;
 
@@ -24,8 +24,8 @@ trait FilterCollectionTrait
      *
      * @param string $id
      * @param string $type Default: Checkbox
+     * @throws ListFilterException
      * @return FilterParameterInterface
-     * @throws ErrorException
      */
     public function add(string $id, string $type = FilterParameterTypeEnum::PARAMETER_CHECKBOX): FilterParameterInterface
     {
@@ -52,13 +52,13 @@ trait FilterCollectionTrait
      * Get parameter by name
      *
      * @param string|int $id
+     * @throws ListFilterException
      * @return FilterParameterInterface
-     * @throws \Exception
      */
     public function getParameter($id): FilterParameterInterface
     {
         if (! isset($this->parameters[$id])) {
-            throw new \Exception("Unknown parameter $id");
+            throw new ListFilterException("Unknown parameter $id");
         }
 
         return $this->parameters[$id];
@@ -131,11 +131,11 @@ trait FilterCollectionTrait
 
     /**
      * @param string $id
-     * @throws ErrorException
+     * @throws ListFilterException
      */
     protected function validateParameterId(string $id): void
     {
-        if (! $id) throw new ErrorException('Name cant be empty');
-        if (isset($this->parameters[$id])) throw new ErrorException('Parameter $id allready exists');
+        if (! $id) throw new ListFilterException('Name cant be empty');
+        if (isset($this->parameters[$id])) throw new ListFilterException('Parameter $id allready exists');
     }
 }
